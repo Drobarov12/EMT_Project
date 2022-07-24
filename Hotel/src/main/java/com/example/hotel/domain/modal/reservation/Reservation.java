@@ -1,5 +1,7 @@
-package com.example.hotel.domain.modal;
+package com.example.hotel.domain.modal.reservation;
 
+import com.example.hotel.domain.modal.Hotel.TimeDurationId;
+import com.example.hotel.domain.modal.Hotel.UserId;
 import com.example.sheredkernel.domain.base.AbstractEntity;
 import lombok.Getter;
 
