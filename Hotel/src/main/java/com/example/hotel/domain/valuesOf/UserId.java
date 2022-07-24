@@ -1,4 +1,4 @@
-package com.example.hotel.domain.modal.Hotel;
+package com.example.hotel.domain.valuesOf;
 
 import com.example.sheredkernel.domain.base.DomainObjectId;
 
