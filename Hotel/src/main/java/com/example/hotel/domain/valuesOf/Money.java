@@ -12,8 +12,7 @@ public class Money {
 
     private final double value;
 
-    protected Money()
-    {
+    protected Money() {
         currency = MoneyCurrency.EUR;
         value = 0;
     }
@@ -23,18 +22,19 @@ public class Money {
         this.value = value;
     }
 
-    public Money Add(MoneyCurrency moneyCurrency,double value){
-        if(this.currency == moneyCurrency){
-            return new Money(currency,this.value+value);
-        }
-        else{
+    public Money Add(MoneyCurrency moneyCurrency, double value) {
+        if (this.currency == moneyCurrency) {
+            return new Money(currency, this.value + value);
+        } else {
             throw new IllegalArgumentException("You can Add two different currencies!");
         }
     }
 
-    public Money SubtractPercentage(double percentage)
-    {
-        return new Money(this.currency,this.value*(percentage/100));
+    public Money SubtractPercentage(double percentage) {
+        return new Money(this.currency, this.value * (percentage / 100));
     }
 
+    public Money Multiply(double amount) {
+        return new Money(this.currency, value * amount);
+    }
 }
