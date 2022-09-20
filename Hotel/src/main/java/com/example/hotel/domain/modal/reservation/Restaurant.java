@@ -16,7 +16,7 @@ public class Restaurant extends Reservation {
     @Enumerated(value = EnumType.STRING)
     private TypeOfRestourantReservation typeOfRestourantReservation;
 
-    public Restaurant(TypeOfRestourantReservation type,UserId userId, TimeDurationId timeDurationId, int peopleNumber) {
+    public Restaurant(TypeOfRestourantReservation type, UserId userId, TimeDurationId timeDurationId, int peopleNumber) {
         super(userId, timeDurationId, peopleNumber);
         this.typeOfRestourantReservation = type;
     }

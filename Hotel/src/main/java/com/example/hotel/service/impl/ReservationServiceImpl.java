@@ -1,9 +1,7 @@
 package com.example.hotel.service.impl;
 
 import com.example.hotel.domain.exeptions.ReservationIdNotFound;
-import com.example.hotel.domain.modal.reservation.Reservation;
-import com.example.hotel.domain.modal.reservation.ReservationId;
-import com.example.hotel.domain.modal.reservation.Spa;
+import com.example.hotel.domain.modal.reservation.*;
 import com.example.hotel.domain.repository.ReservationRepository;
 import com.example.hotel.service.ReservationService;
 import com.example.hotel.service.forms.RestaurantForm;
@@ -34,19 +32,31 @@ public class ReservationServiceImpl implements ReservationService {
         var constraints = validator.validate(spaForm);
         if(constraints.size()>0)
             throw new ConstraintViolationException("Spa reservation is not valid.",constraints);
-        var newReservation = reservationRepository.saveAndFlush(toDomainObject(spaForm));
+        var newReservation = reservationRepository.saveAndFlush(spaToDomainObject(spaForm));
 
-        return null;
+        return newReservation;
     }
 
     @Override
     public Reservation createRestaurantReservation(RestaurantForm restaurantForm) {
-        return null;
+        Objects.requireNonNull(restaurantForm, "Restaurant Form must not be null");
+        var constraints = validator.validate(restaurantForm);
+        if(constraints.size()>0)
+            throw new ConstraintViolationException("Restaurant reservation is not valid.",constraints);
+        var newReservation = reservationRepository.saveAndFlush(restaurantToDomainObject(restaurantForm));
+
+        return newReservation;
     }
 
     @Override
     public Reservation createRoomReservation(RoomForm roomForm) {
-        return null;
+        Objects.requireNonNull(roomForm, "Room Form must not be null");
+        var constraints = validator.validate(roomForm);
+        if(constraints.size()>0)
+            throw new ConstraintViolationException("Room reservation is not valid.",constraints);
+        var newReservation = reservationRepository.saveAndFlush(roomToDomainObject(roomForm));
+
+        return newReservation;
     }
 
     @Override
@@ -60,13 +70,24 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void deleteReservation(ReservationId reservationId) throws ReservationIdNotFound {
-
+    public void deleteReservation(ReservationId reservationId){
+        reservationRepository.deleteById(reservationId);
     }
 
-    private Spa toDomainObject(SpaForm spaForm){
+    private Spa spaToDomainObject(SpaForm spaForm){
         var spa = new Spa(spaForm.getNumOfBeds(),spaForm.getMoneyCurrency(),spaForm.getUser().getId(),spaForm.getTimeDuration().getId(), spaForm.getPeopleNumber());
         spa.cost(spaForm.getPricePerBed());
         return spa;
+    }
+
+    private Room roomToDomainObject(RoomForm roomForm){
+        var room = new Room(roomForm.getNumOfBeds(),roomForm.getMoneyCurrency(),roomForm.getUser().getId(), roomForm.getTimeDuration().getId(),roomForm.getNumOfPeople());
+        room.cost(roomForm.getPricePerBed());
+        return room;
+    }
+
+    private Restaurant restaurantToDomainObject(RestaurantForm restaurantForm){
+        var restaurant = new Restaurant(restaurantForm.getTypeOfRestourantReservation(),restaurantForm.getUser().getId(),restaurantForm.getTimeDuration().getId(), restaurantForm.getNumberOfPeople());
+        return restaurant;
     }
 }
