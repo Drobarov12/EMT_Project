@@ -2,11 +2,8 @@ package com.example.hotel.service.forms;
 
 import com.example.hotel.domain.valueobjects.*;
 import com.example.hotel.domain.valuesOf.MoneyCurrency;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import javax.validation.constraints.*;
 
 
@@ -17,6 +14,9 @@ public class RoomForm {
     @NotNull
     @Min(1)
     private int numOfBeds;
+    @NotNull
+    @Min(1)
+    private int numOfPeople;
     @NotNull
     @Min(5)
     private int pricePerBed;
