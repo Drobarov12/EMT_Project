@@ -1,4 +1,4 @@
-package com.example.users.domain.module;
+package com.example.users.domain.models;
 
 import com.example.sheredkernel.domain.base.DomainObjectId;
 

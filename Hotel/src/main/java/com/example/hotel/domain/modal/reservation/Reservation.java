@@ -13,10 +13,7 @@ import java.util.Set;
 
 @Entity
 @Getter
-public abstract class Reservation extends AbstractEntity<ReservationId> {
-
-    @NotNull
-    private ReservationId reservationId;
+public class Reservation extends AbstractEntity<ReservationId> {
 
     @AttributeOverride(name = "id", column = @Column(name = "user_id"))
     private UserId userId;
@@ -29,20 +26,25 @@ public abstract class Reservation extends AbstractEntity<ReservationId> {
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<NumberOfReservations> nunmberOfReservatiosList = new HashSet<>();
 
+
+    public static Reservation create(UserId userId, TimeDurationId timeDurationId, int peopleNumber) {
+        Reservation reservation = new Reservation();
+        reservation.userId = userId;
+        reservation.timeDurationId = timeDurationId;
+        reservation.peopleNumber = peopleNumber;
+        var temp = new NumberOfReservations(userId);
+        reservation.nunmberOfReservatiosList.add(temp);
+        return reservation;
+    }
+
     public Reservation(UserId userId, TimeDurationId timeDurationId, int peopleNumber) {
         super(ReservationId.randomId(ReservationId.class));
         this.userId = userId;
         this.timeDurationId = timeDurationId;
         this.peopleNumber = peopleNumber;
-        var temp = new NumberOfReservations(userId);
-        this.nunmberOfReservatiosList.add(temp);
     }
 
     public Reservation() {
-        this.reservationId = ReservationId.randomId(ReservationId.class);
-        this.userId = UserId.randomId(UserId.class);
-        this.timeDurationId = TimeDurationId.randomId(TimeDurationId.class);
-        this.peopleNumber = -100;
-        this.nunmberOfReservatiosList = new HashSet<>();
+        super(ReservationId.randomId(ReservationId.class));
     }
 }
