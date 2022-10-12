@@ -6,7 +6,7 @@ import com.example.timeduration.service.forms.TimeDurationForm;
 
 import java.util.List;
 
-public interface TimeDurationInterface {
+public interface TimeDurationService {
 
     TimeDuration findById(TimeDurationId id);
     TimeDuration createTimeDuration(TimeDurationForm timeDurationForm);
