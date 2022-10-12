@@ -4,7 +4,7 @@ import com.example.timeduration.domain.TimeDurationNotFound;
 import com.example.timeduration.domain.model.TimeDuration;
 import com.example.timeduration.domain.model.TimeDurationId;
 import com.example.timeduration.domain.repository.TimeDurationRepository;
-import com.example.timeduration.service.TimeDurationInterface;
+import com.example.timeduration.service.TimeDurationService;
 import com.example.timeduration.service.forms.TimeDurationForm;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class TimeDurationInterfaceImpl implements TimeDurationInterface {
+public class TimeDurationServiceImpl implements TimeDurationService {
 
     private final TimeDurationRepository timeDurationRepository;
 
